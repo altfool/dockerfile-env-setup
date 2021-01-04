@@ -5,18 +5,36 @@ set -e
 # Default Settings
 NAME="u16-kinetic"
 CUDA="on"  # "on" or "off"
-IMAGE_NAME="ros"
-IMAGE_TAG="kinetic-robot"
+IMAGE_NAME="zack/ros"
+IMAGE_TAG="kinetic"
 IMAGE=$IMAGE_NAME:$IMAGE_TAG
 echo -e "ROS distro: $IMAGE"
+
+SHARED_DOCKER_DIR=/root/shared_dir
+SHARED_HOST_DIR=$HOME/shared_dir
 
 RUNTIME=""
 
 XSOCK=/tmp/.X11-unix
-XAUTH=$HOME/.Xauthority
+XAUTH=/tmp/.docker.xauth
 
-SHARED_DOCKER_DIR=/root/shared_dir
-SHARED_HOST_DIR=$HOME/shared_dir
+echo "Preparing Xauthority data..."
+xauth_list=$(xauth nlist :0 | tail -n 1 | sed -e 's/^..../ffff/')
+if [ ! -f $XAUTH ]; then
+    if [ ! -z "$xauth_list" ]; then
+        echo $xauth_list | xauth -f $XAUTH nmerge -
+    else
+        touch $XAUTH
+    fi
+    chmod a+r $XAUTH
+fi
+echo "Done."
+echo -e "\nVerifying file contents:"
+file $XAUTH
+echo "--> It should say \"X11 Xauthority data\"."
+echo -e "\nPermissions:"
+ls -FAlh $XAUTH
+echo -e "\nRunning docker..."
 
 VOLUMES="--volume=$XSOCK:$XSOCK:rw
          --volume=$XAUTH:$XAUTH:rw
@@ -45,6 +63,7 @@ else
         $VOLUMES \
         --env="XAUTHORITY=${XAUTH}" \
         --env="DISPLAY=${DISPLAY}" \
+        --env="QT_X11_NO_MITSHM=1" \
         --privileged \
         --net=host \
         --name=$NAME \
