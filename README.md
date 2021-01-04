@@ -2,9 +2,9 @@
 used to setup ubuntu+ros environment and enable display setting and shared folder
 
 # build docker images
-u18: docker build -t zack/ros:melodic -f u18-ros-melodic-dockerfile .
+u18: "docker build -t zack/ros:melodic -f u18-ros-melodic-dockerfile ."
 
-u16: docker build -t zack/ros:kinetic -f u16-ros-kinetic-dockerfile .
+u16: "docker build -t zack/ros:kinetic -f u16-ros-kinetic-dockerfile ."
 
 # launch images
 Please use u18-ros-melodic-run.sh to launch ubuntu18+ros-melodic;
