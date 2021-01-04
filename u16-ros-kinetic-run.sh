@@ -16,7 +16,7 @@ SHARED_HOST_DIR=$HOME/shared_dir
 RUNTIME=""
 
 XSOCK=/tmp/.X11-unix
-XAUTH=/tmp/.docker.xauth
+XAUTH=$HOME/.docker.xauth
 
 echo "Preparing Xauthority data..."
 xauth_list=$(xauth nlist :0 | tail -n 1 | sed -e 's/^..../ffff/')
