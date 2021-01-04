@@ -3,6 +3,7 @@ used to setup ubuntu+ros environment and enable display setting and shared folde
 
 # build docker images
 u18: docker build -t zack/ros:melodic -f u18-ros-melodic-dockerfile .
+
 u16: docker build -t zack/ros:kinetic -f u16-ros-kinetic-dockerfile .
 
 # launch images
