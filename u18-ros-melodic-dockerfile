@@ -1,5 +1,8 @@
 FROM osrf/ros:melodic-desktop-full
 
+RUN apt-get update
+RUN apt-get install ros-$ROS_DISTRO-catkin python-catkin-tools
+
 # nvidia-container-runtime
 ENV NVIDIA_VISIBLE_DEVICES \
     ${NVIDIA_VISIBLE_DEVICES:-all}

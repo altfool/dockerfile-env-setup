@@ -21,4 +21,10 @@ After usage, please use "docker stop $NAME" to stop this container.
 Please use "docker rm $NAME" to remove this container.
 
 # problems
-If you encounter any problem related to the XAUTH file, please use the shell script fix-auth.sh to fix this.
+1. If you encounter any problem related to the XAUTH file, please use the shell script fix-auth.sh to fix this.
+
+2. If showing "can't connect to X server", please guarantee docker container authentication for display on the X server by the following commands first:
+
+	$ xhost +local:docker
+	
+
