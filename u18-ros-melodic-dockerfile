@@ -1,7 +1,10 @@
 FROM osrf/ros:melodic-desktop-full
 
 RUN apt-get update
-RUN apt-get install ros-$ROS_DISTRO-catkin python-catkin-tools
+RUN apt-get install -y ros-$ROS_DISTRO-catkin python-catkin-tools
+RUN apt-get install -y software-properties-common vim
+#RUN apt-get install -y linux-headers-5.4.0-59-generic
+#RUN apt-get install -y linux-modules-extra-$(uname -r)
 
 # nvidia-container-runtime
 ENV NVIDIA_VISIBLE_DEVICES \
